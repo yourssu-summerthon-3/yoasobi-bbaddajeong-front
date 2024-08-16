@@ -13,14 +13,32 @@ const items = [
   { label: "멜론", subLabel: "100g" },
 ];
 
-export default function ItemSelector() {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+interface Item {
+  label: string;
+  subLabel: string;
+}
 
-  const toggleSelection = (label: string) => {
-    if (selectedItems.includes(label)) {
-      setSelectedItems(selectedItems.filter((item) => item !== label));
+interface ItemSelectorProps {
+  onSelectionChange: (selectedItems: Item[]) => void;
+}
+
+export default function ItemSelector({ onSelectionChange }: ItemSelectorProps) {
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+
+  const toggleSelection = (item: Item) => {
+    const exists = selectedItems.some(
+      (selectedItem) => selectedItem.label === item.label
+    );
+    if (exists) {
+      const updatedItems = selectedItems.filter(
+        (selectedItem) => selectedItem.label !== item.label
+      );
+      setSelectedItems(updatedItems);
+      onSelectionChange(updatedItems);
     } else {
-      setSelectedItems([...selectedItems, label]);
+      const updatedItems = [...selectedItems, item];
+      setSelectedItems(updatedItems);
+      onSelectionChange(updatedItems);
     }
   };
 
@@ -29,7 +47,7 @@ export default function ItemSelector() {
       {items.map((item, index) => (
         <div key={index}>
           <button
-            onClick={() => toggleSelection(item.label)}
+            onClick={() => toggleSelection(item)}
             className="flex items-center justify-between w-full p-3 mb-2 bg-white rounded-md "
           >
             <div className="flex flex-col text-left">
@@ -38,7 +56,9 @@ export default function ItemSelector() {
             </div>
             <div
               className={`w-6 h-6 rounded-full border-2 ${
-                selectedItems.includes(item.label)
+                selectedItems.some(
+                  (selectedItem) => selectedItem.label === item.label
+                )
                   ? "bg-red-500 border-black"
                   : "bg-black"
               }`}

@@ -1,11 +1,50 @@
+"use client";
 import Image from "next/image";
 import ping from "../../../public/ping.svg";
 import { ddag } from "../layout";
 import BannerCarousel from "@/components/BannerCarousel";
 import MenuSelector from "@/components/Base";
 import Topping from "@/components/Topping";
+import ItemSelector from "@/components/Topping";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+interface Item {
+  label: string;
+  subLabel: string;
+}
 
 export default function Home() {
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+  const [selectedGrams, setSelectedGrams] = useState<any>({});
+  const [selectedToppings, setSelectedToppings] = useState<Item[]>([]);
+  const router = useRouter();
+
+  const handleSelectionChange = (menu: string, grams: any) => {
+    setSelectedMenu(menu);
+    console.log(menu);
+    setSelectedGrams(grams);
+    console.log(grams);
+  };
+
+  const handleToppingSelectionChange = (toppings: Item[]) => {
+    setSelectedToppings(toppings);
+    console.log("토핑", toppings);
+  };
+
+  const handleComplete = () => {
+    if (selectedMenu) {
+      const query = {
+        menu: selectedMenu,
+        grams: JSON.stringify(selectedGrams),
+        toppings: JSON.stringify(selectedToppings),
+      };
+      router.push(`/result?${new URLSearchParams(query).toString()}`);
+    } else {
+      alert("메뉴를 선택해주세요.");
+    }
+  };
+
   return (
     <div className="h-screen p-4">
       <header
@@ -28,22 +67,21 @@ export default function Home() {
         />
       </div>
 
-      <div className="text-[24px] font-bold mt-4">
-        나는 이게 조합
-      </div>
+      <div className="text-[24px] font-bold mt-4">나는 이게 조합</div>
       <BannerCarousel />
-      <div className="text-[24px] font-bold mt-4">
-        나는 이런 조합
-      </div>
+      <div className="text-[24px] font-bold mt-4">나는 이런 조합</div>
       <div className="mt-2 w-full h-0.5 bg-[#F63F5D]"></div>
-      <MenuSelector />
+      <MenuSelector onSelectionChange={handleSelectionChange} />
       <div className="mt-5 w-full h-0.5 bg-[#F63F5D]"></div>
-      <Topping />
+      <ItemSelector onSelectionChange={handleToppingSelectionChange} />
       <div className="flex justify-center w-full mt-6">
-      <button className="bg-[#F63F5D] w-[335px] h-[60px] text-white text-center  rounded-[16px] text-[20px]">
-      완료
-    </button>
-    </div>
+        <button
+          className="bg-[#F63F5D] w-[335px] h-[60px] text-white text-center rounded-[16px] text-[20px]"
+          onClick={handleComplete}
+        >
+          완료
+        </button>
+      </div>
     </div>
   );
 }

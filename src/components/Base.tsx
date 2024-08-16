@@ -1,7 +1,5 @@
-"use client";
 import { useState } from "react";
-import { StaticImageData } from "next/image";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import 기본 from "../../public/기본.svg";
 import 초코쉘 from "../../public/초코쉘.svg";
@@ -9,7 +7,6 @@ import 체리쉘 from "../../public/체리쉘.svg";
 
 interface MenuButtonProps {
   label: string;
-  subLabel: string;
   imgSrc: StaticImageData;
   isSelected: boolean;
   onClick: () => void;
@@ -19,7 +16,6 @@ interface MenuButtonProps {
 
 function Base({
   label,
-  subLabel,
   imgSrc,
   isSelected,
   onClick,
@@ -29,10 +25,10 @@ function Base({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center w-full p-4 rounded-lg mb-2 transition-colors ${
+      className={`flex items-center w-full p-4 rounded-[20px] mb-2 transition-colors ${
         isSelected
-          ? "bg-[#F63F5D] text-white rounded-[20px]"
-          : "bg-white text-black border [border-color:#F63F5D] rounded-[20px]"
+          ? "bg-[#F63F5D] text-white"
+          : "bg-white text-black border [border-color:#F63F5D]"
       }`}
     >
       <div className="mr-4">
@@ -82,49 +78,49 @@ function Base({
   );
 }
 
-export default function MenuSelector() {
-  const [selected, setSelected] = useState<string | null>(null);
-  const [selectedGrams, setSelectedGrams] = useState({
-    요거트아이스크림: "1인 150g",
-    초코쉘: "1인 150g",
-    체리쉘: "1인 150g",
-  });
+interface MenuSelectorProps {
+  onSelectionChange: (selectedMenu: string, selectedGram: string) => void;
+}
 
-  const handleSelectGram = (item: string, gram: string) => {
-    setSelectedGrams((prev) => ({
-      ...prev,
-      [item]: gram,
-    }));
+export default function MenuSelector({ onSelectionChange }: MenuSelectorProps) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const [selectedGram, setSelectedGram] = useState("1인 150g");
+
+  const handleSelectGram = (menu: string, gram: string) => {
+    setSelectedGram(gram);
+    onSelectionChange(menu, gram);
+  };
+
+  const handleSelectMenu = (menu: string) => {
+    setSelected(menu);
+    onSelectionChange(menu, selectedGram);
   };
 
   return (
     <div className="flex flex-col items-center w-full max-w-md mt-4">
       <Base
         label="요거트아이스크림"
-        subLabel={selectedGrams["요거트아이스크림"]}
         imgSrc={기본}
         isSelected={selected === "요거트아이스크림"}
-        onClick={() => setSelected("요거트아이스크림")}
+        onClick={() => handleSelectMenu("요거트아이스크림")}
         onSelectGram={(gram) => handleSelectGram("요거트아이스크림", gram)}
-        selectedGram={selectedGrams["요거트아이스크림"]}
+        selectedGram={selectedGram}
       />
       <Base
         label="초코쉘"
-        subLabel={selectedGrams["초코쉘"]}
         imgSrc={초코쉘}
         isSelected={selected === "초코쉘"}
-        onClick={() => setSelected("초코쉘")}
+        onClick={() => handleSelectMenu("초코쉘")}
         onSelectGram={(gram) => handleSelectGram("초코쉘", gram)}
-        selectedGram={selectedGrams["초코쉘"]}
+        selectedGram={selectedGram}
       />
       <Base
         label="체리쉘"
-        subLabel={selectedGrams["체리쉘"]}
         imgSrc={체리쉘}
         isSelected={selected === "체리쉘"}
-        onClick={() => setSelected("체리쉘")}
+        onClick={() => handleSelectMenu("체리쉘")}
         onSelectGram={(gram) => handleSelectGram("체리쉘", gram)}
-        selectedGram={selectedGrams["체리쉘"]}
+        selectedGram={selectedGram}
       />
     </div>
   );
