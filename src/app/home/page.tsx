@@ -28,12 +28,22 @@ export default function Home() {
         />
       </div>
 
+      <div className="text-[24px] font-bold mt-4">
+        나는 이게 조합
+      </div>
       <BannerCarousel />
-      <div className="mt-5 w-full h-0.5 bg-[#F63F5D]"></div>
+      <div className="text-[24px] font-bold mt-4">
+        나는 이런 조합
+      </div>
+      <div className="mt-2 w-full h-0.5 bg-[#F63F5D]"></div>
       <MenuSelector />
       <div className="mt-5 w-full h-0.5 bg-[#F63F5D]"></div>
       <Topping />
-      <div></div>
+      <div className="flex justify-center w-full mt-6">
+      <button className="bg-[#F63F5D] w-[335px] h-[60px] text-white text-center  rounded-[16px] text-[20px]">
+      완료
+    </button>
+    </div>
     </div>
   );
 }

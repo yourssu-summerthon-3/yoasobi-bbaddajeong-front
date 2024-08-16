@@ -6,6 +6,7 @@ import { Pagination } from "swiper/modules";
 import Image from "next/image";
 import 추천조합1 from "../../public/추천조합1.svg";
 import 추천조합2 from "../../public/추천조합2.svg";
+import "./BannerCarousel.style.css"
 
 export default function BannerCarousel() {
   return (
@@ -13,7 +14,7 @@ export default function BannerCarousel() {
       spaceBetween={30}
       pagination={{ clickable: true }}
       modules={[Pagination]}
-      className="w-full mt-6"
+      className="w-full mt-2"
     >
       <SwiperSlide>
         <Image
