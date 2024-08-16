@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import "./globals.css";
 
 import { pretendard } from "./utils/fonts";
@@ -10,9 +11,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pretendard.className}`}>
-        <div className="w-full flex justify-center">
-          <main className="max-w-[600px] w-full h-screen">
-            {children}
+        <div className="flex w-full justify-center">
+          <main className="h-screen w-full max-w-[600px]">
+            <Suspense fallback={<div>loading...</div>}>{children}</Suspense>
           </main>
         </div>
       </body>
