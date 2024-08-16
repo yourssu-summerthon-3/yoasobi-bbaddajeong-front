@@ -10,7 +10,7 @@ export default function Result() {
 
   const menu = searchParams.get("menu") ?? "";
   const grams = searchParams.get("grams") ?? "";
-  const toppings = searchParams.get("toppings") ?? [];
+  const toppings = searchParams.get("toppings") ?? "[]";
 
   console.log("menu", menu);
   console.log("grams", grams);
@@ -19,6 +19,7 @@ export default function Result() {
   return (
     <div className="flex h-screen flex-col">
       <ResultTopBar />
+      {/* @ts-ignore */}
       <MyYoajungSection
         menu={menu}
         grams={JSON.parse(grams)}
