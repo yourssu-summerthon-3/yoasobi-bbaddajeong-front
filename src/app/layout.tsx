@@ -22,7 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <div className="w-full flex justify-center">
+          <div className="max-w-[600px] w-full h-screen bg-frame-image bg-cover">
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
