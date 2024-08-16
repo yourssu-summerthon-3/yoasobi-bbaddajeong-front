@@ -6,7 +6,7 @@ import BannerCarousel from "@/components/BannerCarousel";
 import MenuSelector from "@/components/Base";
 import Topping from "@/components/Topping";
 import ItemSelector from "@/components/Topping";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface Item {
@@ -15,10 +15,20 @@ interface Item {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
   const [selectedGrams, setSelectedGrams] = useState<any>({});
   const [selectedToppings, setSelectedToppings] = useState<Item[]>([]);
-  const router = useRouter();
+  const [location, setLocation] = useState<string>("");
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const address = queryParams.get("address");
+
+    if (address) {
+      setLocation(address);
+    }
+  }, []);
 
   const handleSelectionChange = (menu: string, grams: any) => {
     setSelectedMenu(menu);
@@ -57,6 +67,8 @@ export default function Home() {
         <input
           type="text"
           className="bg-[#F4F6F7] w-full h-full rounded-[16px] p-2 outline-none text-gray-800"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
         />
         <Image
           src={ping}
