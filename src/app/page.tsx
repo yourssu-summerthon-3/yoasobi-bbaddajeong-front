@@ -74,7 +74,7 @@ import { useState } from "react";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { FiMapPin } from "react-icons/fi";
 import { useRouter } from "next/navigation";
-import { ddag } from "./layout";
+import { ddag } from "./utils/fonts";
 
 export default function Home() {
   const [location, setLocation] = useState("");

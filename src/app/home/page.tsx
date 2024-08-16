@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import ping from "../../../public/ping.svg";
-import { ddag } from "../layout";
+import { ddag } from "../utils/fonts";
 import BannerCarousel from "@/components/BannerCarousel";
 import MenuSelector from "@/components/Base";
 import Topping from "@/components/Topping";

@@ -1,6 +1,6 @@
 "use client";
 
-import { ddag } from "@/app/layout";
+import { ddag } from "@/app/utils/fonts";
 import { useRouter } from "next/navigation";
 import { IoArrowBack } from "react-icons/io5";
 
