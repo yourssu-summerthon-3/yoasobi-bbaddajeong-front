@@ -23,8 +23,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pretendard.className}`}>
-        <div className="w-full flex justify-center">
-          <main className="max-w-[600px] w-full h-screen">{children}</main>
+        <div className="flex w-full justify-center">
+          <main className="h-screen w-full max-w-[600px]">{children}</main>
         </div>
       </body>
     </html>
