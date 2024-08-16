@@ -1,6 +1,6 @@
 import ToppingListItem from "./ToppingListItem";
 
-type ToppingItem = {
+export type ToppingItem = {
   label: string;
   subLabel: string;
 };
@@ -23,13 +23,14 @@ export default function MyYoajungSection({
           <span className="text-xl font-semibold">{menu}</span>
           <span className="text-[#A3A3A3]">{grams}</span>
         </div>
-        {toppings.map((topping) => (
-          <ToppingListItem
-            key={topping.label}
-            label={topping.label}
-            subLabel={topping.subLabel}
-          />
-        ))}
+        {toppings &&
+          toppings.map((topping) => (
+            <ToppingListItem
+              key={topping.label}
+              label={topping.label}
+              subLabel={topping.subLabel}
+            />
+          ))}
       </div>
     </section>
   );

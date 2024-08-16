@@ -1,13 +1,12 @@
 "use client";
-import Image from "next/image";
-import ping from "../../../public/ping.svg";
-import { ddag } from "../utils/fonts";
 import BannerCarousel from "@/components/BannerCarousel";
 import MenuSelector from "@/components/Base";
-import Topping from "@/components/Topping";
 import ItemSelector from "@/components/Topping";
-import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import ping from "../../../public/ping.svg";
+import { ddag } from "../utils/fonts";
 
 interface Item {
   label: string;
@@ -45,6 +44,7 @@ export default function Home() {
   const handleComplete = () => {
     if (selectedMenu) {
       const query = {
+        address: location,
         menu: selectedMenu,
         grams: JSON.stringify(selectedGrams),
         toppings: JSON.stringify(selectedToppings),
@@ -58,15 +58,15 @@ export default function Home() {
   return (
     <div className="h-screen p-4">
       <header
-        className={`${ddag.variable} ali font-ddag text-gray-800 text-2xl mb-4 mt-6`}
+        className={`${ddag.variable} ali mb-4 mt-6 font-ddag text-2xl text-gray-800`}
       >
         요아소비빠따정
       </header>
 
-      <div className="flex items-center justify-between w-[353px] h-[56px] bg-[#F4F6F7] rounded-[16px] p-2">
+      <div className="flex h-[56px] w-[353px] items-center justify-between rounded-[16px] bg-[#F4F6F7] p-2">
         <input
           type="text"
-          className="bg-[#F4F6F7] w-full h-full rounded-[16px] p-2 outline-none text-gray-800"
+          className="h-full w-full rounded-[16px] bg-[#F4F6F7] p-2 text-gray-800 outline-none"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
@@ -79,16 +79,16 @@ export default function Home() {
         />
       </div>
 
-      <div className="text-[24px] font-bold mt-4">나는 이게 조합</div>
+      <div className="mt-4 text-[24px] font-bold">나는 이게 조합</div>
       <BannerCarousel />
-      <div className="text-[24px] font-bold mt-4">나는 이런 조합</div>
-      <div className="mt-2 w-full h-0.5 bg-[#F63F5D]"></div>
+      <div className="mt-4 text-[24px] font-bold">나는 이런 조합</div>
+      <div className="mt-2 h-0.5 w-full bg-[#F63F5D]"></div>
       <MenuSelector onSelectionChange={handleSelectionChange} />
-      <div className="mt-5 w-full h-0.5 bg-[#F63F5D]"></div>
+      <div className="mt-5 h-0.5 w-full bg-[#F63F5D]"></div>
       <ItemSelector onSelectionChange={handleToppingSelectionChange} />
-      <div className="flex justify-center w-full mt-6">
+      <div className="mt-6 flex w-full justify-center">
         <button
-          className="bg-[#F63F5D] w-[335px] h-[60px] text-white text-center rounded-[16px] text-[20px]"
+          className="h-[60px] w-[335px] rounded-[16px] bg-[#F63F5D] text-center text-[20px] text-white"
           onClick={handleComplete}
         >
           완료
