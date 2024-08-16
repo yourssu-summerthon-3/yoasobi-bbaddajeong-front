@@ -11,6 +11,10 @@ const config: Config = {
       backgroundImage: {
         "frame-image": "url('/frame-image.png')",
       },
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+        ddag: ["var(--font-ddag)"],
+      },
     },
   },
   plugins: [],

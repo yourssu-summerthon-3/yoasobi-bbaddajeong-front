@@ -1,3 +1,5 @@
+import { ddag } from "./layout";
+
 export default function Home() {
-  return <>hello</>;
+  return <div className={`${ddag.variable} font-ddag`}>hello</div>;
 }

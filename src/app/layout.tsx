@@ -8,10 +8,17 @@ export const metadata: Metadata = {
 
 import localFont from "next/font/local";
 
-const pretendard = localFont({
+export const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   display: "swap",
   weight: "45 920",
+  variable: "--font-pretendard",
+});
+
+export const ddag = localFont({
+  src: "./fonts/ddag.ttf",
+  display: "swap",
+  variable: "--font-ddag",
 });
 
 export default function RootLayout({
@@ -21,12 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head></head>
-      <body className={pretendard.className}>
+      <body className={`${pretendard.className}`}>
         <div className="w-full flex justify-center">
-          <div className="max-w-[600px] w-full h-screen bg-frame-image bg-cover">
+          <main className="max-w-[600px] w-full h-screen bg-frame-image bg-cover">
             {children}
-          </div>
+          </main>
         </div>
       </body>
     </html>
