@@ -31,7 +31,6 @@
 //   //   );
 //   // };
 
-
 //   return (
 //     <div
 //       className={
@@ -70,23 +69,21 @@
 
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { FiMapPin } from "react-icons/fi";
-import { useRouter } from "next/navigation";
 import { ddag } from "./utils/fonts";
 
 export default function Home() {
   const [location, setLocation] = useState("");
-  const router = useRouter(); 
+  const router = useRouter();
 
   const getCurrentLocation = () => {
-    const predefinedLocation = "서울특별시 동작구 사당로 50"; 
-    setLocation(predefinedLocation); 
+    const predefinedLocation = "서울특별시 동작구 사당로 50";
+    setLocation(predefinedLocation);
 
-    setTimeout(() => {
-      router.push(`/home?address=${encodeURIComponent(predefinedLocation)}`);
-    }, 2000); 
+    router.push(`/home?address=${predefinedLocation}`);
   };
 
   return (
@@ -103,7 +100,7 @@ export default function Home() {
       <div className="mt-24 flex h-14 w-80 items-center gap-2 rounded-2xl bg-[#F4F6F7] px-4 py-2 text-[#929BA5]">
         <FiMapPin className="h-6 w-6" />
         <input
-          className="flex-grow bg-transparent"
+          className="flex-grow bg-transparent outline-none"
           placeholder="현재 위치를 알려주세요"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
