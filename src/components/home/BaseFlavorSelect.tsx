@@ -105,10 +105,11 @@ const BaseFlavorOption = ({ flavor, imgSrc }: BaseFlavorOptionProps) => {
             className="mt-2 rounded-lg border border-[#F63F5D] bg-white shadow-lg"
             position="popper"
           >
-            <SelectItem value="1인 150g">1인 150g</SelectItem>
-            <SelectItem value="2인 300g">2인 300g</SelectItem>
-            <SelectItem value="3인 450g">3인 450g</SelectItem>
-            <SelectItem value="4인 600g">4인 600g</SelectItem>
+            {Object.keys(BaseSize).map((size) => (
+              <SelectItem key={size} value={size}>
+                {size}
+              </SelectItem>
+            ))}
           </Select.Content>
         </Select.Root>
       </div>
