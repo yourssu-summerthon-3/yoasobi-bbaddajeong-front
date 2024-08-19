@@ -1,6 +1,7 @@
 "use client";
 import BannerCarousel from "@/components/BannerCarousel";
 import BaseFlavorSelect from "@/components/home/BaseFlavorSelect";
+import ToppingSelect, { ToppingItem } from "@/components/home/ToppingSelect";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -15,6 +16,18 @@ interface Item {
   label: string;
   subLabel: string;
 }
+
+const ToppingList: ToppingItem[] = [
+  { name: "벌집꿀", size: "50g" },
+  { name: "그래놀라", size: "50g" },
+  { name: "초코링", size: "30g" },
+  { name: "망고", size: "1/2개" },
+  { name: "블루베리", size: "50g" },
+  { name: "바나나", size: "1개" },
+  { name: "복숭아", size: "100g" },
+  { name: "샤인머스캣", size: "100g" },
+  { name: "멜론", size: "100g" },
+];
 
 export default function Home() {
   const router = useRouter();
@@ -32,45 +45,11 @@ export default function Home() {
     console.log("Selected: ", size);
   };
 
-  // const [selectedGrams, setSelectedGrams] =
-  //   useState<keyof typeof BaseSize>("1인 150g");
-  // const [selectedToppings, setSelectedToppings] = useState<Item[]>([]);
+  const handleSelectTopping = (toppings: ToppingItem[]) => {
+    console.log("Selected: ", toppings);
+  };
 
-  // useEffect(() => {
-  //   const queryParams = new URLSearchParams(window.location.search);
-  //   const address = queryParams.get("address");
-
-  //   if (address) {
-  //     setLocation(address);
-  //   }
-  // }, []);
-
-  // const handleSelectionChange = (menu: string, grams: any) => {
-  //   console.log("handleSelectionChange");
-  //   console.log("menu", menu);
-  //   console.log("grams", grams);
-  //   setSelectedMenu(menu);
-  //   setSelectedGrams(grams);
-  // };
-
-  // const handleToppingSelectionChange = (toppings: Item[]) => {
-  //   setSelectedToppings(toppings);
-  //   console.log("토핑", toppings);
-  // };
-
-  // const handleComplete = () => {
-  //   if (selectedMenu) {
-  //     const query = {
-  //       address: location,
-  //       menu: selectedMenu,
-  //       grams: JSON.stringify(selectedGrams),
-  //       toppings: JSON.stringify(selectedToppings),
-  //     };
-  //     router.push(`/result?${new URLSearchParams(query).toString()}`);
-  //   } else {
-  //     alert("메뉴를 선택해주세요.");
-  //   }
-  // };
+  const handleClickComplete = () => {};
 
   return (
     <div className="p-4">
@@ -102,17 +81,23 @@ export default function Home() {
         <BaseFlavorSelect.Option flavor="초코쉘" imgSrc={초코쉘} />
         <BaseFlavorSelect.Option flavor="체리쉘" imgSrc={체리쉘} />
       </BaseFlavorSelect>
-      {/* <MenuSelector onSelectionChange={handleSelectionChange} />
-      <div className="mt-5 h-0.5 w-full bg-[#F63F5D]"></div>
-      <ItemSelector onSelectionChange={handleToppingSelectionChange} />
-      <div className="mt-6 flex w-full justify-center">
-        <button
-          className="h-[60px] w-[335px] rounded-[16px] bg-[#F63F5D] text-center text-[20px] text-white"
-          onClick={handleComplete}
-        >
-          완료
-        </button>
-      </div> */}
+      <div className="h-0.5 w-full bg-[#F63F5D]"></div>
+      <ToppingSelect onSelectTopping={handleSelectTopping}>
+        {ToppingList.map((topping, index) => (
+          <div key={topping.name}>
+            <ToppingSelect.Option topping={topping} />
+            {index === 2 || index === 8 ? (
+              <div className="my-2 h-0.5 w-full bg-[#F63F5D]" />
+            ) : null}
+          </div>
+        ))}
+      </ToppingSelect>
+      <button
+        type="button"
+        className="mt-6 h-[60px] w-full rounded-2xl bg-[#F63F5D] text-xl font-semibold text-white"
+      >
+        완료
+      </button>
     </div>
   );
 }
